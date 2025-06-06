@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "897777801038",
+    "project_id": "itsdone-app",
+    "storage_bucket": "itsdone-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897777801038:android:b61dc1001c1e89afffb01f",
+        "android_client_info": {
+          "package_name": "com.example.its_done"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIKjdk2VeApjo2wD5A1jAyKSXaqZSTXVA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
