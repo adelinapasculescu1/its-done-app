@@ -20,6 +20,9 @@ class HabitTrackerApp extends StatelessWidget {
     return MaterialApp(
       title: 'Habit Tracker',
       theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
+      routes: {
+        '/login': (context) => const LoginScreen(),
+      },
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
