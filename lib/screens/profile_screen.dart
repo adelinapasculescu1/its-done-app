@@ -168,6 +168,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onPressed: _changePassword,
               child: const Text('Change Password'),
             ),
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/admin'),
+              child: const Text('Admin'),
+            )
           ],
         ),
       ),
