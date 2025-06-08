@@ -147,7 +147,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
           ],
         )
       ),
-      bottomNavigationBar: const BottomMenuBar(currentIndex: 0),
+      bottomNavigationBar: const BottomMenuBar(currentIndex: 2),
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:its_done/screens/create_habit_screen.dart';
 import 'package:its_done/screens/edit_habit_screen.dart';
 import 'package:its_done/screens/friends_screen.dart';
 import 'package:its_done/services/notification_service.dart';
+import 'package:its_done/utils/app_theme.dart';
 import 'models/habit.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
@@ -26,7 +27,7 @@ class HabitTrackerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Habit Tracker',
-      theme: ThemeData(useMaterial3: true, colorSchemeSeed: Colors.blue),
+      theme: AppTheme.lightTheme,
       onGenerateRoute: (settings) {
         if (settings.name == '/editHabit') {
           final habit = settings.arguments as Habit;
