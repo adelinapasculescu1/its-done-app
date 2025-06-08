@@ -23,26 +23,14 @@ class FriendHabitsScreen extends StatelessWidget {
           }
 
           final habits = snapshot.data ?? [];
-          if (habits.isEmpty) {
-            return const Center(child: Text('No habits found.'));
-          }
 
           return ListView.builder(
             itemCount: habits.length,
             itemBuilder: (context, index) {
-              final habit = habits[index];
-              final isCompleted = habit.calendar[today] ?? false;
-
-              return Card(
-                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: ListTile(
-                  title: Text(habit.name),
-                  trailing: Icon(
-                    isCompleted ? Icons.check_circle : Icons.radio_button_unchecked,
-                    color: isCompleted ? Colors.green : Colors.grey,
-                  ),
-                  subtitle: Text("Streak: 🔥 ${habit.streak}"),
-                ),
+              final h = habits[index];
+              return ListTile(
+                title: Text(h.name),
+                subtitle: Text("userId: ${h.userId}"),
               );
             },
           );

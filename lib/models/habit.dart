@@ -5,6 +5,7 @@ class Habit {
   final String time;
   final int streak;
   final Map<String, bool> calendar;
+  final String userId;
 
   Habit({
     required this.id,
@@ -13,6 +14,7 @@ class Habit {
     required this.time,
     this.streak = 0,
     this.calendar = const {},
+    required this.userId,
   });
 
   factory Habit.fromMap(Map<String, dynamic> data, String id) {
@@ -23,6 +25,7 @@ class Habit {
       time: data['time'] ?? '08:00',
       streak: data['streak'] ?? 0,
       calendar: Map<String, bool>.from(data['calendar'] ?? {}),
+      userId: data['userId'] ?? '',
     );
   }
 
@@ -33,6 +36,7 @@ class Habit {
       'time': time,
       'streak': streak,
       'calendar': calendar,
+      'userId': userId,
     };
   }
 }

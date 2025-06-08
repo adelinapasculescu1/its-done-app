@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../models/habit.dart';
 import '../services/habit_service.dart';
@@ -32,12 +33,15 @@ class _CreateHabitScreenState extends State<CreateHabitScreen> {
     if (_formKey.currentState!.validate()) {
       final timeFormatted =
       _selectedTime.format(context);
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) return;
 
       final habit = Habit(
         id: '',
         name: _nameController.text.trim(),
         frequency: _frequency,
         time: timeFormatted,
+        userId: currentUser.uid,
       );
 
       await HabitService().createHabit(habit);

@@ -67,6 +67,7 @@ class _EditHabitScreenState extends State<EditHabitScreen> {
         time: "${_selectedTime.hour.toString().padLeft(2, '0')}:${_selectedTime.minute.toString().padLeft(2, '0')}",
         calendar: _habit.calendar,
         streak: _habit.streak,
+        userId: _habit.userId,
       );
 
       await HabitService().updateHabit(updatedHabit);
