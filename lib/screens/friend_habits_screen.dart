@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/app_user.dart';
 import '../models/habit.dart';
 import '../services/habit_service.dart';
+import '../utils/app_theme.dart';
 
 class FriendHabitsScreen extends StatelessWidget {
   final AppUser friend;
@@ -34,9 +35,36 @@ class FriendHabitsScreen extends StatelessWidget {
             itemCount: habits.length,
             itemBuilder: (context, index) {
               final h = habits[index];
-              return ListTile(
-                title: Text(h.name),
-                subtitle: Text('Streak: 🔥 ${h.streak}'),
+              return Card(
+                color: AppTheme.cardColor, // sau Color(0xFF8CC695)
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        h.name,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Streak: 🔥 ${h.streak}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               );
             },
           );

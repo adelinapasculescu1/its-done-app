@@ -3,6 +3,7 @@ import '../screens/home_screen.dart';
 import '../screens/calendar_screen.dart';
 import '../screens/friends_screen.dart';
 import '../screens/profile_screen.dart';
+import '../utils/app_theme.dart';
 
 class BottomMenuBar extends StatelessWidget {
   final int currentIndex;
@@ -42,8 +43,9 @@ class BottomMenuBar extends StatelessWidget {
       currentIndex: currentIndex,
       onTap: (index) => _onItemTapped(context, index),
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: Theme.of(context).colorScheme.primary,
-      unselectedItemColor: Colors.grey,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white70,
+      backgroundColor: AppTheme.primaryColor,
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
         BottomNavigationBarItem(icon: Icon(Icons.calendar_today), label: 'Calendar'),

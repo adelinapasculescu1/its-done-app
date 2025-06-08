@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import '../models/habit.dart';
 import '../services/auth_service.dart';
 import '../services/habit_service.dart';
+import '../utils/app_theme.dart';
 import '../widgets/bottom_menu_bar.dart';
 import 'login_screen.dart';
 
@@ -42,6 +43,7 @@ class HomeScreen extends StatelessWidget {
               final completedToday = habit.calendar[today] ?? false;
 
               return Card(
+                color: AppTheme.cardColor,
                 margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: ListTile(
                   title: Text(habit.name),

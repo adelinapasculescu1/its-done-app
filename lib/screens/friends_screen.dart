@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/app_user.dart';
 import '../services/user_service.dart';
+import '../utils/app_theme.dart';
 import '../widgets/bottom_menu_bar.dart';
 import 'friend_habits_screen.dart';
 
@@ -101,6 +102,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     final user = _searchResults[index];
                     final isFriend = _friendUids.contains(user.uid);
                     return ListTile(
+                      tileColor: AppTheme.cardColor,
                       title: Text(user.displayName),
                       subtitle: Text(user.email),
                       trailing: isFriend
@@ -129,17 +131,47 @@ class _FriendsScreenState extends State<FriendsScreen> {
                   itemCount: _friends.length,
                   itemBuilder: (context, index) {
                     final friend = _friends[index];
-                    return ListTile(
-                      title: Text(friend.displayName),
-                      subtitle: Text(friend.email),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => FriendHabitsScreen(friend: friend),
+                    return Card(
+                      color: AppTheme.cardColor, // sau Color(0xFF8CC695)
+                      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => FriendHabitsScreen(friend: friend),
+                            ),
+                          );
+                        },
+                        borderRadius: BorderRadius.circular(12),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                friend.displayName,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                friend.email,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-                      },
+                        ),
+                      ),
                     );
                   },
                 ),
