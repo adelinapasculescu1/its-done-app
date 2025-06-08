@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../models/app_user.dart';
 import '../models/habit.dart';
 import '../services/habit_service.dart';
@@ -11,18 +10,25 @@ class FriendHabitsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final habitService = HabitService();
-    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
 
     return Scaffold(
       appBar: AppBar(title: Text("${friend.displayName}'s Habits Today")),
-      body: FutureBuilder<List<Habit>>(
-        future: habitService.getHabitsByUserId(friend.uid),
+      body: StreamBuilder<List<Habit>>(
+        stream: habitService.getHabitsByUserIdStream(friend.uid),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+
           final habits = snapshot.data ?? [];
+
+          if (habits.isEmpty) {
+            return const Center(child: Text('No habits found.'));
+          }
 
           return ListView.builder(
             itemCount: habits.length,
@@ -30,7 +36,7 @@ class FriendHabitsScreen extends StatelessWidget {
               final h = habits[index];
               return ListTile(
                 title: Text(h.name),
-                subtitle: Text("userId: ${h.userId}"),
+                subtitle: Text('Streak: 🔥 ${h.streak}'),
               );
             },
           );

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/habit.dart';
+import 'package:intl/intl.dart';
 
 class HabitService {
   final _auth = FirebaseAuth.instance;
@@ -23,8 +24,10 @@ class HabitService {
   }
 
   Stream<List<Habit>> getHabitsByUserIdStream(String userId) {
-    return _habitRef
-        .where('userId', isEqualTo: userId)
+    return _db
+        .collection('users')
+        .doc(userId)
+        .collection('habits')
         .snapshots()
         .map((snapshot) => snapshot.docs
         .map((doc) => Habit.fromFirestore(doc))
@@ -32,7 +35,7 @@ class HabitService {
   }
 
   Future<void> updateHabitCompletion(String habitId, DateTime date, bool completed) async {
-    final dateKey = date.toIso8601String().split("T").first;
+    final dateKey = DateFormat('yyyy-MM-dd').format(date);
 
     final doc = _habitRef.doc(habitId);
     final snapshot = await doc.get();
@@ -41,17 +44,20 @@ class HabitService {
 
     final data = snapshot.data() as Map<String, dynamic>;
     final calendar = Map<String, bool>.from(data['calendar'] ?? {});
-    final lastStreak = data['streak'] ?? 0;
 
     calendar[dateKey] = completed;
 
     int streak = 0;
-    final yesterday = DateTime.now().subtract(const Duration(days: 1)).toIso8601String().split("T").first;
+    DateTime currentDate = DateTime.now();
 
-    if (completed && calendar[yesterday] == true) {
-      streak = lastStreak + 1;
-    } else if (completed) {
-      streak = 1;
+    while (true) {
+      final key = DateFormat('yyyy-MM-dd').format(currentDate);
+      if (calendar[key] == true) {
+        streak++;
+        currentDate = currentDate.subtract(const Duration(days: 1));
+      } else {
+        break;
+      }
     }
 
     await doc.update({
@@ -69,9 +75,10 @@ class HabitService {
   }
 
   Future<List<Habit>> getHabitsByUserId(String userId) async {
-    final querySnapshot = await FirebaseFirestore.instance
+    final querySnapshot = await _db
+        .collection('users')
+        .doc(userId)
         .collection('habits')
-        .where('userId', isEqualTo: userId)
         .get();
 
     return querySnapshot.docs
