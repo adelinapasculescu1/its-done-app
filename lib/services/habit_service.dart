@@ -12,7 +12,13 @@ class HabitService {
       _db.collection('users').doc(_uid).collection('habits');
 
   Future<void> createHabit(Habit habit) async {
-    final docRef = await _habitRef.add(habit.toMap());
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) return;
+
+    final habitData = habit.toMap();
+    habitData['userId'] = currentUser.uid;
+
+    final docRef = await _habitRef.add(habitData);
     await docRef.update({'id': docRef.id});
   }
 
@@ -59,5 +65,10 @@ class HabitService {
 
   Future<void> deleteHabit(String habitId) async {
     await _habitRef.doc(habitId).delete();
+  }
+
+  Future<List<Habit>> getHabitsByUserId(String userId) async {
+    final snapshot = await _habitRef.where('userId', isEqualTo: userId).get();
+    return snapshot.docs.map((doc) => Habit.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
   }
 }

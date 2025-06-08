@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:its_done/screens/admin_screen.dart';
 import 'package:its_done/screens/create_habit_screen.dart';
 import 'package:its_done/screens/edit_habit_screen.dart';
+import 'package:its_done/screens/friends_screen.dart';
 import 'package:its_done/services/notification_service.dart';
 import 'models/habit.dart';
 import 'screens/login_screen.dart';
@@ -46,6 +47,9 @@ class HabitTrackerApp extends StatelessWidget {
           return MaterialPageRoute(builder: (_) => const AdminScreen());
         }
 
+        if (settings.name == '/friends') {
+          return MaterialPageRoute(builder: (_) => const FriendsScreen());
+        }
         return null;
       },
       home: StreamBuilder<User?>(

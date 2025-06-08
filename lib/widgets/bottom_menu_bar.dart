@@ -30,7 +30,7 @@ class BottomMenuBar extends StatelessWidget {
         return;
     }
 
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => destination),
     );
