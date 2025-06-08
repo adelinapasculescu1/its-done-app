@@ -6,6 +6,7 @@ import '../models/app_user.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  User? get currentUser => _auth.currentUser;
 
   Future<User?> register({
     required String email,

@@ -22,12 +22,13 @@ class HabitService {
     await docRef.update({'id': docRef.id});
   }
 
-  Stream<List<Habit>> getHabits() {
-    return _habitRef.snapshots().map((snapshot) {
-      return snapshot.docs
-          .map((doc) => Habit.fromMap(doc.data() as Map<String, dynamic>, doc.id))
-          .toList();
-    });
+  Stream<List<Habit>> getHabitsByUserIdStream(String userId) {
+    return _habitRef
+        .where('userId', isEqualTo: userId)
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+        .map((doc) => Habit.fromFirestore(doc))
+        .toList());
   }
 
   Future<void> updateHabitCompletion(String habitId, DateTime date, bool completed) async {
@@ -68,7 +69,13 @@ class HabitService {
   }
 
   Future<List<Habit>> getHabitsByUserId(String userId) async {
-    final snapshot = await _habitRef.where('userId', isEqualTo: userId).get();
-    return snapshot.docs.map((doc) => Habit.fromMap(doc.data() as Map<String, dynamic>, doc.id)).toList();
+    final querySnapshot = await FirebaseFirestore.instance
+        .collection('habits')
+        .where('userId', isEqualTo: userId)
+        .get();
+
+    return querySnapshot.docs
+        .map((doc) => Habit.fromFirestore(doc))
+        .toList();
   }
 }

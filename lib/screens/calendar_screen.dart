@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
 import '../models/habit.dart';
+import '../services/auth_service.dart';
 import '../services/habit_service.dart';
 import '../widgets/bottom_menu_bar.dart';
 
@@ -26,7 +27,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   Future<void> _loadHabits() async {
-    final habitStream = HabitService().getHabits();
+    final user = AuthService().currentUser;
+
+    if (user == null) {
+      setState(() {
+        _habits = [];
+        _loading = false;
+      });
+      return;
+    }
+
+    final habitStream = HabitService().getHabitsByUserIdStream(user.uid);
     habitStream.listen((data) {
       if (mounted) {
         setState(() {
@@ -49,7 +60,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             .fold<DateTime?>(null, (a, b) => a == null || a.isAfter(b) ? b : a);
 
         return startDate != null &&
-            startDate.weekday == day.weekday; // simplificare pentru demo
+            startDate.weekday == day.weekday;
       }
       return false;
     }).toList();

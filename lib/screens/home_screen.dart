@@ -12,11 +12,16 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final habitService = HabitService();
+    final user = AuthService().currentUser;
+
+    if (user == null) {
+      return const LoginScreen();
+    }
 
     return Scaffold(
       appBar: AppBar(title: const Text('Your Habits')),
       body: StreamBuilder<List<Habit>>(
-        stream: habitService.getHabits(),
+        stream: habitService.getHabitsByUserIdStream(user.uid),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -63,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                               arguments: habit,
                             );
                           } else if (value == 'delete') {
-                            HabitService().deleteHabit(habit.id);
+                            habitService.deleteHabit(habit.id);
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Habit deleted')),
                             );

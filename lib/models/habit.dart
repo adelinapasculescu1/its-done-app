@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Habit {
   final String id;
   final String name;
@@ -17,9 +19,10 @@ class Habit {
     required this.userId,
   });
 
-  factory Habit.fromMap(Map<String, dynamic> data, String id) {
+  factory Habit.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
     return Habit(
-      id: id,
+      id: doc.id,
       name: data['name'] ?? '',
       frequency: data['frequency'] ?? 'daily',
       time: data['time'] ?? '08:00',
