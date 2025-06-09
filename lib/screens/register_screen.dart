@@ -43,6 +43,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
+            const SizedBox(height: 32),
+            Image.asset(
+              'assets/images/logo.png',
+              height: 240,
+              width: 240,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 32),
             TextField(controller: _name, decoration: const InputDecoration(labelText: "Name")),
             TextField(controller: _email, decoration: const InputDecoration(labelText: "Email")),
             TextField(controller: _password, obscureText: true, decoration: const InputDecoration(labelText: "Password")),

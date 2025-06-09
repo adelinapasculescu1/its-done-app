@@ -42,7 +42,7 @@ class _EditHabitScreenState extends State<EditHabitScreen> {
       }
     } catch (e) {
       debugPrint("Failed to parse time '${_habit.time}': $e");
-      _selectedTime = const TimeOfDay(hour: 8, minute: 0); // fallback safe value
+      _selectedTime = const TimeOfDay(hour: 8, minute: 0);
     }
   }
 

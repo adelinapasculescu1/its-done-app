@@ -104,10 +104,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 _focusedDay = focusedDay;
               });
             },
-            calendarFormat: CalendarFormat.month, // Force month view
+            calendarFormat: CalendarFormat.month,
             availableCalendarFormats: const {
               CalendarFormat.month: 'Month',
-            }, // Disable switching
+            },
             calendarStyle: CalendarStyle(
               todayDecoration: BoxDecoration(
                 color: Colors.blue.shade300,

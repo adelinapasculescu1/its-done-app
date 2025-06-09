@@ -10,8 +10,6 @@ import 'package:its_done/utils/app_theme.dart';
 import 'models/habit.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

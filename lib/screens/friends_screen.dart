@@ -132,7 +132,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                   itemBuilder: (context, index) {
                     final friend = _friends[index];
                     return Card(
-                      color: AppTheme.cardColor, // sau Color(0xFF8CC695)
+                      color: AppTheme.cardColor,
                       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),

@@ -57,7 +57,7 @@ class _CreateHabitScreenState extends State<CreateHabitScreen> {
       }
 
       if (mounted) {
-        Navigator.pop(context, true); // revino la HomeScreen
+        Navigator.pop(context, true);
       }
     }
   }
